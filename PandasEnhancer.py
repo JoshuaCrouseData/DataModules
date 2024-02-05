@@ -224,7 +224,7 @@ class DataFrameManipulator:
         
         Parameters:
         - func: The function to apply.
-        - axis: {0 or ‘index’, 1 or ‘columns’}, default 0.
+        - axis: {0 or "index", 1 or "columns"}, default 0.
         - args, kwargs: Additional arguments to pass to the function.
         
         Returns:
@@ -255,7 +255,7 @@ class DataFrameManipulator:
         
         Parameters:
         - func: Function to apply to each column or row.
-        - axis: {0 or ‘index’, 1 or ‘columns’}
+        - axis: {0 or "index", 1 or "columns"}
         - args, kwargs: Additional arguments to pass to the function.
         
         Returns:
@@ -271,7 +271,7 @@ class DataFrameManipulator:
         
         Parameters:
         - func: Function, string, dictionary, or list of string/functions.
-        - axis: {0 or ‘index’, 1 or ‘columns’}
+        - axis: {0 or "index", 1 or "columns"}
         - args, kwargs: Additional arguments to pass to the function.
         
         Returns:
