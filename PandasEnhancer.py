@@ -1,5 +1,6 @@
 import pandas as pd
 import pandas_flavor as pf
+import swifter
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
@@ -214,4 +215,98 @@ class DataFrameManipulator:
         Drops specified columns from the DataFrame.
         """
         self.df = self.df.drop(columns, axis=1)
+        return self.df
+    
+    @pf.register_dataframe_method
+    def swifter_apply(self, func, axis=0, *args, **kwargs):
+        """
+        Applies a function along an axis of the DataFrame using Swifter for potential speedup.
+        
+        Parameters:
+        - func: The function to apply.
+        - axis: {0 or ‘index’, 1 or ‘columns’}, default 0.
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Modified DataFrame
+        """
+        self.df = self.df.swifter.apply(func, axis=axis, *args, **kwargs)
+        return self.df
+    
+    @pf.register_dataframe_method
+    def swifter_applymap(self, func, *args, **kwargs):
+        """
+        Apply a function to a DataFrame elementwise using Swifter.
+        
+        Parameters:
+        - func: The function to apply to each element.
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Modified DataFrame
+        """
+        self.df = self.df.swifter.applymap(func, *args, **kwargs)
+        return self.df
+    
+    @pf.register_dataframe_method
+    def swifter_transform(self, func, axis=0, *args, **kwargs):
+        """
+        Call func on self producing a DataFrame with transformed values using Swifter.
+        
+        Parameters:
+        - func: Function to apply to each column or row.
+        - axis: {0 or ‘index’, 1 or ‘columns’}
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Modified DataFrame
+        """
+        self.df = self.df.swifter.transform(func, axis=axis, *args, **kwargs)
+        return self.df
+
+    @pf.register_dataframe_method
+    def swifter_agg(self, func, axis=0, *args, **kwargs):
+        """
+        Aggregate using one or more operations over the specified axis using Swifter.
+        
+        Parameters:
+        - func: Function, string, dictionary, or list of string/functions.
+        - axis: {0 or ‘index’, 1 or ‘columns’}
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Result of aggregation.
+        """
+        return self.df.swifter.agg(func, axis=axis, *args, **kwargs)
+
+    @pf.register_dataframe_method
+    def swifter_groupby_apply(self, by, func, *args, **kwargs):
+        """
+        Apply a function to each group using Swifter for faster processing.
+        
+        Parameters:
+        - by: Mapping, function, label, or list of labels used to determine the groups.
+        - func: The function to apply to each group.
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Modified DataFrame
+        """
+        self.df = self.df.groupby(by).swifter.apply(func, *args, **kwargs)
+        return self.df
+
+    @pf.register_dataframe_method
+    def swifter_rolling_apply(self, window, func, *args, **kwargs):
+        """
+        Provides rolling window calculations using Swifter for potential speedup.
+        
+        Parameters:
+        - window: Size of the moving window.
+        - func: The function to apply to each window.
+        - args, kwargs: Additional arguments to pass to the function.
+        
+        Returns:
+        - Modified DataFrame
+        """
+        self.df = self.df.rolling(window).swifter.apply(func, *args, **kwargs)
         return self.df
