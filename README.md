@@ -5,6 +5,10 @@ A repository of Python modules designed specifically for data analysis and manip
 
 `PandasEnhancer` is a Python module designed to extend the capabilities of the pandas library, making data manipulation and analysis more efficient and intuitive. By leveraging `pandas_flavor`, it registers additional methods directly on pandas DataFrame objects, facilitating a more seamless and integrated workflow for data scientists and analysts.
 
+## UPDATE: 2/5/24
+
+The `PandasEnhancer` module now includes methods enhanced by Swifter, a library that optimizes the application of functions on pandas data structures by automatically deciding when to use parallel processing. This integration significantly improves performance, especially for large datasets or complex operations.
+
 ## Features
 
 `PandasEnhancer` includes a variety of methods to enhance data manipulation, including but not limited to:
@@ -51,9 +55,72 @@ df_clean = df_manipulator.remove_duplicates()
 df_norm = df_manipulator.normalize('Column1')
 ```
 
+## Swifter-Enhanced Methods
+
+### Features
+
+- **Efficient Application of Functions**: Apply functions to DataFrames or Series efficiently, whether it's a simple row-wise or column-wise application, or a more complex operation like groupby-apply.
+- **Automatic Parallel Processing**: Swifter decides when to use Dask for parallel processing to speed up computations, without requiring manual intervention from the user.
+- **Versatile Data Manipulation**: From elementwise function application with `applymap` to complex aggregations and transformations, enhance your data manipulation capabilities with ease.
+
+### Usage Examples
+
+**Applying Functions with Swifter**
+
+Apply a function to each row or column of a DataFrame with potential speedup:
+
+```python
+df_manipulator.swifter_apply(func, axis=0)
+```
+
+**Elementwise Function Application**
+
+Apply a function elementwise on a DataFrame:
+
+```python
+df_manipulator.swifter_applymap(func)
+```
+
+**Transformation and Aggregation**
+
+Perform transformations and aggregations efficiently:
+
+```python
+df_manipulator.swifter_transform(func, axis=0)
+df_manipulator.swifter_agg(func, axis=0)
+```
+
+**GroupBy Apply**
+
+Apply functions to groups with improved performance:
+
+```python
+df_manipulator.swifter_groupby_apply(by="column_name", func)
+```
+
+**Rolling Apply**
+
+Use rolling window calculations enhanced by Swifter:
+
+```python
+df_manipulator.swifter_rolling_apply(window=3, func)
+```
+
+### Getting Started with Swifter-Enhanced Methods
+
+To start using these Swifter-enhanced methods, ensure you have Swifter installed in your environment:
+
+```sh
+pip install swifter
+```
+
+Then, simply use the methods as shown in the examples above to experience significantly improved performance in your data manipulation tasks.
+
 ## Contributing
 
 Contributions to PandasEnhancer are welcome! If you have suggestions for improvements or new features, feel free to open an issue or submit a pull request. Please ensure your code adheres to the project's coding standards and includes tests covering new functionality or fixes.
+
+We welcome contributions to improve and extend the capabilities of `PandasEnhancer`, including enhancements, bug fixes, documentation improvements, and more. If you have ideas or implementations for further Swifter integrations or other performance optimizations, please feel free to submit a pull request or open an issue.
 
 ## License
 
@@ -112,7 +179,7 @@ If you encounter any issues or have questions about using PandasEnhancer, please
 
 ## Acknowledgements
 
-PandasEnhancer was created to simplify and streamline the process of data manipulation and analysis in Python. Thanks to all contributors and users for their support and feedback.
+PandasEnhancer was created to simplify and streamline the process of data manipulation and analysis in Python. Thanks to all contributors and users for their support and feedback. Special thanks to the developers of Swifter for providing an efficient way to speed up pandas operations, and to all contributors to the `PandasEnhancer` project for their valuable input and support.
 
 ## See Also
 
